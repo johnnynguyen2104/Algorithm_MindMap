@@ -26,6 +26,27 @@ namespace DemoAlgotithm.LinkedList_Algorithm
 
         public LinkedListNode<T> Tail { get; set; }
 
+        public bool Contains(T value)
+        {
+            if (value != null)
+            {
+                var current = Head;
+
+                while (current != null && !current.Value.Equals(value))
+                {
+                    current = current.Next;
+                }
+
+                if (current == null)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            return false;
+        }
+
         public void Add(LinkedListNode<T> value)
         {
             if (value != null)

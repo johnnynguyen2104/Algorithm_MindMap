@@ -13,6 +13,8 @@ namespace DemoAlgotithm
             linkedList.Add(new LinkedList_Algorithm.LinkedListNode<int>(1));
             linkedList.Add(new LinkedList_Algorithm.LinkedListNode<int>(2));
             linkedList.Add(new LinkedList_Algorithm.LinkedListNode<int>(3));
+
+            Console.WriteLine(linkedList.Contains(4));
         }
     }
 }
