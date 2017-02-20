@@ -62,7 +62,7 @@ namespace DemoAlgotithm.BinaryTree
             return null;
         } 
 
-        public bool Delete(T value)
+        public bool Remove(T value)
         {
             if (value != null)
             {
@@ -71,8 +71,39 @@ namespace DemoAlgotithm.BinaryTree
                     return false;
                 }
 
+                var nodeToRemove = FindNode(value, Root);
 
-               
+                if (nodeToRemove == null)
+                {
+                    return false;
+                }
+
+                var nodeParentForRemove = FindParent(Root, value);
+
+                if (Count == 1)
+                {
+                    //this case for the root is the one need to remove.
+                    _root = null;
+                }
+                else if (nodeToRemove.Left != null && nodeToRemove.Right == null)
+                {
+                    if (nodeToRemove.Value.CompareTo(nodeParentForRemove.Value) > 0)
+                    {
+                        nodeParentForRemove.Left = nodeToRemove.Left;
+                    }
+                    else
+                    {
+                        nodeParentForRemove.Right = nodeToRemove.Right;
+                    }
+                }
+                else
+                {
+                    
+                }
+
+
+
+
             }
 
             return false;
