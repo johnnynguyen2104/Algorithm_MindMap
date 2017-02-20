@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace DemoAlgotithm.LinkedList_Algorithm
 {
+
+    //LinkedList_Algorithm.LinkedList<int> linkedList = new LinkedList_Algorithm.LinkedList<int>();
+    //linkedList.Insert(new LinkedList_Algorithm.LinkedListNode<int>(1));
+    //linkedList.Insert(new LinkedList_Algorithm.LinkedListNode<int>(2));
+    //linkedList.Insert(new LinkedList_Algorithm.LinkedListNode<int>(3));
+    //linkedList.Delete(2);
+    //Console.WriteLine(linkedList.Contains(4));
+
     public class LinkedListNode<T>
     {
 
@@ -18,7 +26,7 @@ namespace DemoAlgotithm.LinkedList_Algorithm
 
         public LinkedListNode<T> Next { get; set; }
 
-        
+        public LinkedListNode<T> Previous { get; set; }
     }
     public class LinkedList<T>
     {
@@ -26,41 +34,78 @@ namespace DemoAlgotithm.LinkedList_Algorithm
 
         public LinkedListNode<T> Tail { get; set; }
 
-        public bool Contains(T value)
+        public bool Delete(T value)
         {
-            if (value != null)
+            if (Head == null)
+            {
+                return false;
+            }
+
+            if (Head.Value.Equals(value))
+            {
+                Head = Head == Tail ? null : Head.Next;
+            }
+            else
             {
                 var current = Head;
-
-                while (current != null && !current.Value.Equals(value))
+                while (current.Next != null && !current.Next.Value.Equals(value))
                 {
                     current = current.Next;
                 }
 
-                if (current == null)
+                if (current.Next != null)
                 {
-                    return false;
+                    if (current.Next == Tail)
+                    {
+                        Tail = current;
+                    }
+                    else
+                    {
+                        current.Next = current.Next.Next;
+                    }
+
+                    return true;
                 }
-                return true;
+
+                return false;
             }
 
             return false;
         }
 
-        public void Add(LinkedListNode<T> value)
+        public bool Contains(T value)
         {
-            if (value != null)
+            if (value == null) return false;
+
+            var current = Head;
+
+            while (current != null && !current.Value.Equals(value))
             {
-                if (Head == null)
-                {
-                    Head = value;
-                    Tail = value;
-                }
-                else
-                {
-                    Tail.Next = value;
-                    Tail = value;
-                }
+                current = current.Next;
+            }
+
+            if (current == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void Insert(LinkedListNode<T> value)
+        {
+            if (value == null) return;
+
+            var node = value;
+            if (Head == null)
+            {
+                Head = value;
+                Tail = value;
+            }
+            else
+            {
+                node.Previous = Tail;
+                Tail.Next = value;
+                Tail = value;
             }
         }
     }

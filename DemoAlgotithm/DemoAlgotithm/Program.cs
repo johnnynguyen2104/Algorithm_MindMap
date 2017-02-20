@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using DemoAlgotithm.BinaryTree;
 
 namespace DemoAlgotithm
 {
@@ -9,12 +10,18 @@ namespace DemoAlgotithm
     {
         static void Main(string[] args)
         {
-            LinkedList_Algorithm.LinkedList<int> linkedList = new LinkedList_Algorithm.LinkedList<int>();
-            linkedList.Add(new LinkedList_Algorithm.LinkedListNode<int>(1));
-            linkedList.Add(new LinkedList_Algorithm.LinkedListNode<int>(2));
-            linkedList.Add(new LinkedList_Algorithm.LinkedListNode<int>(3));
+            BinaryTreeStructure<int> binaryTreeStructure = new BinaryTreeStructure<int>();
 
-            Console.WriteLine(linkedList.Contains(4));
+            binaryTreeStructure.Insert(new BinaryNode<int>(23));
+            binaryTreeStructure.Insert(new BinaryNode<int>(14));
+            binaryTreeStructure.Insert(new BinaryNode<int>(31));
+            binaryTreeStructure.Insert(new BinaryNode<int>(7));
+            binaryTreeStructure.Insert(new BinaryNode<int>(17));
+            binaryTreeStructure.Insert(new BinaryNode<int>(9));
+
+
+            Console.WriteLine(binaryTreeStructure.FindNode(7));
+            Console.ReadLine();
         }
     }
 }
