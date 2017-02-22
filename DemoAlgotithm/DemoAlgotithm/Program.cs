@@ -12,15 +12,18 @@ namespace DemoAlgotithm
         {
             BinaryTreeStructure<int> binaryTreeStructure = new BinaryTreeStructure<int>();
 
-            binaryTreeStructure.Insert(new BinaryNode<int>(23));
-            binaryTreeStructure.Insert(new BinaryNode<int>(14));
+            binaryTreeStructure.Insert(new BinaryNode<int>(24));
+            binaryTreeStructure.Insert(new BinaryNode<int>(20));
             binaryTreeStructure.Insert(new BinaryNode<int>(31));
             binaryTreeStructure.Insert(new BinaryNode<int>(7));
-            binaryTreeStructure.Insert(new BinaryNode<int>(17));
-            binaryTreeStructure.Insert(new BinaryNode<int>(9));
+            binaryTreeStructure.Insert(new BinaryNode<int>(22));
+            binaryTreeStructure.Insert(new BinaryNode<int>(6));
+            binaryTreeStructure.Insert(new BinaryNode<int>(21));
+            binaryTreeStructure.Insert(new BinaryNode<int>(23));
 
+            Console.WriteLine(binaryTreeStructure.FindMaxNode().Value);
 
-            Console.WriteLine(binaryTreeStructure.FindNode(7));
+            Console.WriteLine(binaryTreeStructure.FindMinNode().Value);
             Console.ReadLine();
         }
     }

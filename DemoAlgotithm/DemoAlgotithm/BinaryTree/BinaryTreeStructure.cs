@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,6 +31,24 @@ namespace DemoAlgotithm.BinaryTree
         public BinaryNode<T> Root => _root;
 
         public long Count => _count;
+
+        public BinaryNode<T> FindMinNode(BinaryNode<T> root = null)
+        {
+            if (root == null)
+            {
+                return FindMin(Root);
+            }  
+            return FindMin(root);
+        }
+
+        public BinaryNode<T> FindMaxNode(BinaryNode<T> root = null)
+        {
+            if (root == null)
+            {
+                return FindMax(Root);
+            }
+            return FindMax(root);
+        }
 
         public bool Search(T value, BinaryNode<T> root = null)
         {
@@ -78,32 +97,68 @@ namespace DemoAlgotithm.BinaryTree
                     return false;
                 }
 
-                var nodeParentForRemove = FindParent(Root, value);
+                var parent = FindParent(Root, value);
 
                 if (Count == 1)
                 {
                     //this case for the root is the one need to remove.
                     _root = null;
                 }
-                else if (nodeToRemove.Left != null && nodeToRemove.Right == null)
+                else if (nodeToRemove.Left == null && nodeToRemove.Right == null)
                 {
-                    if (nodeToRemove.Value.CompareTo(nodeParentForRemove.Value) > 0)
+                    if (nodeToRemove.Value.CompareTo(parent.Value) > 0)
                     {
-                        nodeParentForRemove.Left = nodeToRemove.Left;
+                        parent.Left = null;
                     }
                     else
                     {
-                        nodeParentForRemove.Right = nodeToRemove.Right;
+                        parent.Right = null;
+                    }
+                }
+                else if(nodeToRemove.Left == null && nodeToRemove.Right != null)
+                {
+                    if (parent.Left.Value.CompareTo(value) == 0)
+                    {
+                        parent.Left = nodeToRemove.Right;
+                    }
+                    else
+                    {
+                        parent.Right = nodeToRemove.Right;
+                    }
+                }
+                else if (nodeToRemove.Left != null && nodeToRemove.Right == null)
+                {
+                    if (parent.Left.Value.CompareTo(value) == 0)
+                    {
+                        parent.Left = nodeToRemove.Left;
+                    }
+                    else
+                    {
+                        parent.Right = nodeToRemove.Left;
                     }
                 }
                 else
                 {
-                    
+                    if (nodeToRemove.Left != null)
+                    {
+                        var largestValue = FindNode(nodeToRemove.Left.Value);
+
+                        while (largestValue.Right != null)
+                        {
+                            largestValue = largestValue.Right;
+                        }
+
+                        var largestValueParent = FindParentNode(largestValue.Value);
+
+                        if (largestValueParent != null)
+                        {
+                            largestValueParent.Right = null;
+                        }
+
+                        nodeToRemove.Value = largestValue.Value;
+                    }
                 }
-
-
-
-
+                _count--;
             }
 
             return false;
@@ -136,7 +191,37 @@ namespace DemoAlgotithm.BinaryTree
                 return Find(Root, value);
             }
             return null;
-        } 
+        }
+
+        private BinaryNode<T> FindMin(BinaryNode<T> root)
+        {
+            if (root != null)
+            {
+                while (root.Left != null)
+                {
+                    root = root.Left;
+                }
+
+                return root;
+            }
+
+            return null;
+        }
+
+        private BinaryNode<T> FindMax(BinaryNode<T> root)
+        {
+            if (root != null)
+            {
+                while (root.Right != null)
+                {
+                    root = root.Right;
+                }
+
+                return root;
+            }
+
+            return null;
+        }
 
         private bool Contains(BinaryNode<T> root , T value)
         {
