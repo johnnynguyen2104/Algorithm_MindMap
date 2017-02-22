@@ -43,29 +43,37 @@ namespace DemoAlgotithm.LinkedList_Algorithm
 
             if (Head.Value.Equals(value))
             {
-                Head = Head == Tail ? null : Head.Next;
+                if (Head == Tail)
+                {
+                    Head = null;
+                    Tail = null;
+                }
+                else
+                {
+                    Head = Head.Next;
+                    Head.Previous = null;
+                }
             }
             else
             {
-                var current = Head;
-                while (current.Next != null && !current.Next.Value.Equals(value))
+                var current = Head.Next;
+                while (current != null && !current.Value.Equals(value))
                 {
                     current = current.Next;
                 }
 
-                if (current.Next != null)
+                if (current == Tail)
                 {
-                    if (current.Next == Tail)
-                    {
-                        Tail = current;
-                    }
-                    else
-                    {
-                        current.Next = current.Next.Next;
-                    }
-
-                    return true;
+                    Tail = Tail.Previous;
+                    Tail.Next = null;
                 }
+                else if (current != null)
+                {
+                    current = current.Next;
+                    current.Previous = current.Previous.Previous;
+                    current.Previous.Next = current;
+                }
+
 
                 return false;
             }

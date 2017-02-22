@@ -8,6 +8,20 @@ using System.Threading.Tasks;
 
 namespace DemoAlgotithm.BinaryTree
 {
+
+    /*
+     *  BinaryTreeStructure<int> binaryTreeStructure = new BinaryTreeStructure<int>();
+
+            binaryTreeStructure.Insert(new BinaryNode<int>(23));
+            binaryTreeStructure.Insert(new BinaryNode<int>(14));
+            binaryTreeStructure.Insert(new BinaryNode<int>(31));
+            binaryTreeStructure.Insert(new BinaryNode<int>(7));
+            binaryTreeStructure.Insert(new BinaryNode<int>(17));
+            binaryTreeStructure.Insert(new BinaryNode<int>(9));
+
+
+            Console.WriteLine(binaryTreeStructure.FindNode(7));
+     * */
     public class BinaryNode<T>
     {
         public BinaryNode(T value)
