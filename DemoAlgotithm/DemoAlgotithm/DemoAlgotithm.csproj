@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryTree\BinaryTreeStructure.cs" />
+    <Compile Include="Heap_DataStructure\MinHeapBinary.cs" />
     <Compile Include="LinkedList_Algorithm\LinkedList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
