@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assignments\Array.cs" />
+    <Compile Include="Assignments\Basic.cs" />
+    <Compile Include="Assignments\Int.cs" />
+    <Compile Include="Assignments\String.cs" />
+    <Compile Include="Assignments\Shape.cs" />
     <Compile Include="BinaryTree\BinaryTreeStructure.cs" />
     <Compile Include="Heap_DataStructure\MinHeapBinary.cs" />
     <Compile Include="LinkedList_Algorithm\LinkedList.cs" />
