@@ -106,12 +106,14 @@ namespace DemoAlgotithm.LinkedList_Algorithm
             var node = value;
             if (Head == null)
             {
+                //make Head and tail point to one memory
                 Head = value;
                 Tail = value;
             }
             else
             {
                 node.Previous = Tail;
+                //changing this the head will be changed  
                 Tail.Next = value;
                 Tail = value;
             }
