@@ -8,6 +8,8 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+
+
         #region
         /*
          * Given a sequence of integers as an array, determine whether it is possible to obtain a strictly increasing sequence by removing no more than one element from the array.
@@ -27,23 +29,43 @@ namespace DemoAlgotithm.Assignments
         #endregion
         public static bool AlmostIncreasingSequence(int[] sequence)
         {
-            //TODO:
-            var length = sequence.Length;
+            //int sumOfAll = 0;
+            //for (int i = 0; i < sequence.Length; i++)
+            //{
+            //    sumOfAll += sequence[i];
+            //}
 
-            if (length < 3)
-            {
-                return (sequence[0] < sequence[1]);
-            }
+            List<int> temp = new List<int>();
 
-            for (int i = 1; i < length - 1; i++)
+            for (int i = 0; i < sequence.Length; i++)
             {
-                if (sequence[i - 1] < sequence[i + 1])
+                for (int j = 0; j < sequence.Length ; j++)
                 {
+                    if (i != j)
+                    {
+                        if(temp.Count - 1 < 0 || temp[temp.Count - 1] < sequence[j])
+                        {
+                            temp.Add(sequence[j]);
+                        }
+                    }
                     
                 }
+
+                if (temp.Count  == sequence.Length - 1)
+                {
+                    return true;
+                }
+
+                temp.Clear();
+
             }
+
             return false;
         }
+
+
+
+    
 
         #region
         //Ratiorg got statues of different sizes as a present from CodeMaster for his birthday, each statue having an non-negative integer size.Since he likes to make things perfect, he wants to arrange them from smallest to largest so that each statue will be bigger than the previous one exactly by 1. He may need some additional statues to be able to accomplish that.Help him figure out the minimum number of additional statues needed.

@@ -11,7 +11,7 @@ namespace DemoAlgotithm
         static void Main(string[] args)
         {
 
-            Console.WriteLine(Assignments.Assignments.AddTwoDigits(29));
+            Console.WriteLine(Assignments.Assignments.AlmostIncreasingSequence(new int[] { 1, 4, 10, 4, 2 }));
 
             Console.ReadLine();
         }
