@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +47,7 @@
     <Compile Include="Assignments\Array.cs" />
     <Compile Include="Assignments\Basic.cs" />
     <Compile Include="Assignments\Int.cs" />
+    <Compile Include="Assignments\Matrix.cs" />
     <Compile Include="Assignments\String.cs" />
     <Compile Include="Assignments\Shape.cs" />
     <Compile Include="BinaryTree\BinaryTreeStructure.cs" />

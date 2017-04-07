@@ -8,7 +8,44 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        #region
+        //Given an array of strings, return another array containing all of its longest strings
+        #endregion
+        public static string[] AllLongestStrings(string[] inputArray)
+        {
 
+            string[] result = new string[0];
+            int longest = 0, index = 0;
+
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                if (longest < inputArray[i].Length)
+                { 
+                    //clear all the array string result because we have new longest string.
+                    result = new string[0];
+                    index = 0;
+                    longest = inputArray[i].Length;
+                    //
+
+                    index++;
+                    result = AddStringItem(inputArray, result, index, i);
+                }
+                else if(longest == inputArray[i].Length)
+                {
+                    index++;
+                    result = AddStringItem(inputArray, result, index, i);
+                }
+            }
+
+            return result;
+        }
+
+        private static string[] AddStringItem(string[] inputArray, string[] result, int index, int i)
+        {
+            Array.Resize(ref result, index);
+            result[index - 1] = inputArray[i];
+            return result;
+        }
 
         #region
         /*
@@ -29,43 +66,44 @@ namespace DemoAlgotithm.Assignments
         #endregion
         public static bool AlmostIncreasingSequence(int[] sequence)
         {
-            //int sumOfAll = 0;
-            //for (int i = 0; i < sequence.Length; i++)
-            //{
-            //    sumOfAll += sequence[i];
-            //}
+            int[] temp = new int[sequence.Length - 1];
+            temp[0] = sequence[0];
+            int index = 0;
 
-            List<int> temp = new List<int>();
-
-            for (int i = 0; i < sequence.Length; i++)
+            for (int i = 1; i < sequence.Length; i++)
             {
-                for (int j = 0; j < sequence.Length ; j++)
+                if ((temp[index]) >= sequence[i])
                 {
-                    if (i != j)
+                    if (index - 1 >= 0 && sequence[i] > temp[index - 1])
                     {
-                        if(temp.Count - 1 < 0 || temp[temp.Count - 1] < sequence[j])
-                        {
-                            temp.Add(sequence[j]);
-                        }
+                        temp[index] = sequence[i];
+                    }
+                    else if(index - 1 < 0)
+                    {
+                        temp[index] = sequence[i];
                     }
                     
                 }
-
-                if (temp.Count  == sequence.Length - 1)
+                else
                 {
-                    return true;
+                    index++;
+                    temp[index] = sequence[i];
                 }
-
-                temp.Clear();
-
             }
 
+            if (index == sequence.Length - 2)
+            {
+                for (int i = 0; i < temp.Length - 1; i++)
+                {
+                    if (temp[i] + 1 > temp[i + 1])
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
             return false;
         }
-
-
-
-    
 
         #region
         //Ratiorg got statues of different sizes as a present from CodeMaster for his birthday, each statue having an non-negative integer size.Since he likes to make things perfect, he wants to arrange them from smallest to largest so that each statue will be bigger than the previous one exactly by 1. He may need some additional statues to be able to accomplish that.Help him figure out the minimum number of additional statues needed.

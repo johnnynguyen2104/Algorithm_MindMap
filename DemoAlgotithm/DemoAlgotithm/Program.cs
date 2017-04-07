@@ -11,7 +11,8 @@ namespace DemoAlgotithm
         static void Main(string[] args)
         {
 
-            Console.WriteLine(Assignments.Assignments.AlmostIncreasingSequence(new int[] { 1, 4, 10, 4, 2 }));
+
+            Console.WriteLine(Assignments.Assignments.IsLucky(1230));
 
             Console.ReadLine();
         }
