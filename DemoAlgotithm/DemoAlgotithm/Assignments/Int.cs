@@ -29,17 +29,17 @@ namespace DemoAlgotithm.Assignments
             {
                 index++;
                 Array.Resize(ref array, index);
-                array[index - 1] = (n%currentVal);
-                n = (n/currentVal);
+                array[index - 1] = (n % currentVal);
+                n = (n / currentVal);
             }
 
-            BigInteger sumOfValue = new BigInteger(), left = new BigInteger();
+            int sumOfValue = 0, left = 0;
             for (int i = 0; i < array.Length; i++)
             {
                 sumOfValue += array[i];
             }
 
-            for (int i = 0; i < array.Length/2; i++)
+            for (int i = 0; i < array.Length / 2; i++)
             {
                 left += array[i];
                 sumOfValue -= array[i];

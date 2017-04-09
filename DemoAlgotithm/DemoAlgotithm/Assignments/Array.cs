@@ -8,6 +8,66 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+
+        #region
+        /*
+         Several people are standing in a row and need to be divided into two teams. 
+         The first person goes into team 1, the second goes into team 2, the third goes into team 1 again, 
+         the fourth into team 2, and so on.
+
+        You are given an array of positive integers - the weights of the people. Return an array of two integers, where the first element is the total weight of team 1, and the second element is the total weight of team 2 after the division is complete.
+
+        Example
+
+        For a = [50, 60, 60, 45, 70], the output should be
+        alternatingSums(a) = [180, 105].
+             */
+        #endregion
+        public static int[] AlternatingSums(int[] a)
+        {
+            int teamA = 0, teamB = 0;
+
+            for (int i = 0; i < a.Length; i += 2)
+            {
+                teamA += i >= a.Length ? 0 : a[i];
+                teamB += (i + 1) >= a.Length ? 0 : a[i + 1];
+            }
+
+            return new int[] { teamA, teamB };
+        }
+
+
+
+        #region
+        /*Some people are standing in a row in a park. 
+         * There are trees between them which cannot be moved. 
+         * Your task is to rearrange the people by their heights in a non-descending order without moving the trees.
+         */
+        #endregion
+
+        public static int[] SortByHeight(int[] a)
+        {
+            int temp = 0;
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] != -1)
+                {
+                    for (int j = i + 1; j < a.Length; j++)
+                    {
+                        if (a[j] != -1 && a[i] > a[j])
+                        {
+                            temp = a[i];
+                            a[i] = a[j];
+                            a[j] = temp;
+                        }
+                    }
+                }
+            }
+
+            return a;
+        }
+
         #region
         //Given an array of strings, return another array containing all of its longest strings
         #endregion

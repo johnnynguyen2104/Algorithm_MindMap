@@ -11,8 +11,8 @@ namespace DemoAlgotithm
         static void Main(string[] args)
         {
 
-
-            Console.WriteLine(Assignments.Assignments.IsLucky(1230));
+            //Console.WriteLine(Assignments.Assignments.ReverseParentheses("ab(ac)aa"));
+            Console.WriteLine(Assignments.Assignments.AddBorder(new string[] { "a" }));
 
             Console.ReadLine();
         }

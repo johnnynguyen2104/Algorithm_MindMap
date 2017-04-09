@@ -9,6 +9,150 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+
+        #region
+        /*
+         * 
+         * Given a rectangular matrix of characters, add a border of asterisks(*) to it.
+
+            Example
+
+            For
+
+            picture = ["abc",
+                       "ded"]
+            the output should be
+
+            addBorder(picture) = ["*****",
+                                  "*abc*",
+                                  "*ded*",
+                                  "*****"]
+                     */
+        #endregion
+        public static string[] AddBorder(string[] picture)
+        {
+            if (picture.Length == 0)
+            {
+                return null;
+            }
+
+            string[] result = new string[picture.Length + 2];
+
+            int longest = 0;
+            for (int i = 0; i < picture.Length; i++)
+            {
+                if (longest < picture[i].Length)
+                {
+                    longest = picture[i].Length;
+                }
+            }
+
+            StringBuilder builder = new StringBuilder(longest + 2);
+            for (int i = 0; i < longest + 2; i++)
+            {
+                builder.Append('*');
+            }
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = i == 0 || i == result.Length - 1 ? builder.ToString() : '*' + picture[i -1] + '*';
+            }
+
+            return result;
+        }
+
+
+        #region
+        /*
+         You have a string s that consists of English letters, punctuation marks, whitespace characters, and brackets. 
+         It is guaranteed that the parentheses in s form a regular bracket sequence.
+
+        Your task is to reverse the strings contained in each pair of matching parentheses, starting from the innermost pair. The results string should not contain any parentheses.
+
+        Example
+
+        For string s = "a(bc)de", the output should be
+        reverseParentheses(s) = "acbde".
+             */
+        #endregion
+        public static string ReverseParentheses(string s)
+        {
+            StringBuilder builder = new StringBuilder(s.Length);
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                {
+                    builder.Append(ReverseSubStringInParentheses(s, i + 1, ref i));
+                }
+                else
+                {
+                    builder.Append(s[i]);
+                }
+                
+            }
+
+            return builder.ToString();
+        }
+
+        private static string ReverseSubStringInParentheses(string s, int startIndex, ref int outputIndex)
+        {
+            string children = "";
+
+            if (s[startIndex] == '(')
+            {
+                int i = 0;
+                for (i = startIndex + 1; s[i] != ')'; i++)
+                {
+                    if (s[i] == '(')
+                    {
+                        children += ReverseSubStringInParentheses(s, i + 1, ref i);
+                    }
+                    else
+                    {
+                        children += s[i];
+                    }
+                }
+                startIndex = i;
+
+            }
+            else if (s[startIndex] == ')')
+            {
+                outputIndex = startIndex;
+                return null;
+            }
+
+            var currentChar = s[startIndex] == ')' || s[startIndex] == '(' ? "" : s[startIndex].ToString() ;
+
+            return ReverseSubStringInParentheses(s, startIndex + 1, ref outputIndex) + currentChar + children;
+        }
+
+        /*
+         This function for order by(DESC) a string (not using loop) 
+             */
+        private static string OrderByDESCSubStringInParentheses(string s, int startIndex, ref int outputIndex)
+        {
+            //string children = "";
+
+            //if (s[startIndex] == '(')
+            //{
+            //    children = ReverseSubStringInParentheses(s, startIndex + 1, ref outputIndex);
+            //    startIndex = outputIndex;
+            //}
+
+            if(s[startIndex] == ')')
+            {
+                outputIndex = startIndex;
+                return null;
+            }
+
+            var comparer = OrderByDESCSubStringInParentheses(s, startIndex + 1, ref outputIndex);
+
+            return (s[startIndex].CompareTo(comparer == null ? ' ': comparer[0]) < 0 ? comparer + s[startIndex] : s[startIndex] + comparer); 
+        }
+
+      
+
         //Given two strings, find the number of common characters between them.
         public static int CommonCharacterCount(string s1, string s2)
         {
