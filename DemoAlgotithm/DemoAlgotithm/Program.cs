@@ -12,7 +12,7 @@ namespace DemoAlgotithm
         {
 
             //Console.WriteLine(Assignments.Assignments.ReverseParentheses("ab(ac)aa"));
-            Console.WriteLine(Assignments.Assignments.AddBorder(new string[] { "a" }));
+            Console.WriteLine(Assignments.Assignments.AreSimilar(new int[] { 2, 3, 1 }, new int[] { 1, 3, 2 } ));
 
             Console.ReadLine();
         }
