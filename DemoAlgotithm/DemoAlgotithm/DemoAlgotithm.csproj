@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Assignments\Array.cs" />
     <Compile Include="Assignments\Basic.cs" />
+    <Compile Include="Assignments\Image.cs" />
     <Compile Include="Assignments\Int.cs" />
     <Compile Include="Assignments\Matrix.cs" />
     <Compile Include="Assignments\String.cs" />

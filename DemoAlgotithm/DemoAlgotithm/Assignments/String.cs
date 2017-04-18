@@ -9,59 +9,6 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
-
-        #region
-        /*
-         * 
-         * Given a rectangular matrix of characters, add a border of asterisks(*) to it.
-
-            Example
-
-            For
-
-            picture = ["abc",
-                       "ded"]
-            the output should be
-
-            addBorder(picture) = ["*****",
-                                  "*abc*",
-                                  "*ded*",
-                                  "*****"]
-                     */
-        #endregion
-        public static string[] AddBorder(string[] picture)
-        {
-            if (picture.Length == 0)
-            {
-                return null;
-            }
-
-            string[] result = new string[picture.Length + 2];
-
-            int longest = 0;
-            for (int i = 0; i < picture.Length; i++)
-            {
-                if (longest < picture[i].Length)
-                {
-                    longest = picture[i].Length;
-                }
-            }
-
-            StringBuilder builder = new StringBuilder(longest + 2);
-            for (int i = 0; i < longest + 2; i++)
-            {
-                builder.Append('*');
-            }
-
-            for (int i = 0; i < result.Length; i++)
-            {
-                result[i] = i == 0 || i == result.Length - 1 ? builder.ToString() : '*' + picture[i -1] + '*';
-            }
-
-            return result;
-        }
-
-
         #region
         /*
          You have a string s that consists of English letters, punctuation marks, whitespace characters, and brackets. 
