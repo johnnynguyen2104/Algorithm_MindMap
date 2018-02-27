@@ -12,5 +12,32 @@ namespace DemoAlgotithm.Assignments
         {
             return (n*n) + ((n - 1)*(n - 1));
         }
+
+        /// <summary>
+        /// Show the triangles
+        /// </summary>
+        /// <param name="n"></param>
+        public static void StairCase(int n)
+        {
+            if (n > 0)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = n - 1; j >= 0; j--)
+                    {
+                        if (j > i)
+                        {
+                            Console.Write(" ");
+                        }
+                        else
+                        {
+                            Console.Write("#");
+                        }
+                    }
+                    Console.WriteLine();
+
+                }
+            }
+        }
     }
 }

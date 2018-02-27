@@ -46,14 +46,16 @@
   <ItemGroup>
     <Compile Include="Assignments\Array.cs" />
     <Compile Include="Assignments\Basic.cs" />
+    <Compile Include="Assignments\DateTimeAlgorithm.cs" />
     <Compile Include="Assignments\Image.cs" />
     <Compile Include="Assignments\Int.cs" />
     <Compile Include="Assignments\Matrix.cs" />
-    <Compile Include="Assignments\String.cs" />
+    <Compile Include="Assignments\StringManipulation.cs" />
     <Compile Include="Assignments\Shape.cs" />
     <Compile Include="BinaryTree\BinaryTreeStructure.cs" />
     <Compile Include="Heap_DataStructure\MinHeapBinary.cs" />
     <Compile Include="LinkedList_Algorithm\LinkedList.cs" />
+    <Compile Include="OOP\DogCowDuck.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

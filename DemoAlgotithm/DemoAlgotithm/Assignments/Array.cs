@@ -8,6 +8,28 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        public static void MiniMaxSum(int[] arr)
+        {
+            Int64 total = 0, max = 0, min = Int64.MaxValue;
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                total += arr[i];
+
+                if (arr[i] > max)
+                {
+                    max = arr[i];
+                }
+                if (arr[i] < min)
+                {
+                    min = arr[i];
+                }
+            }
+
+            Console.WriteLine(string.Format("{0} {1}", (total - max), (total - min)));
+        }
+
+
         #region
         /*
          * Two arrays are called similar if one can be obtained from another by swapping at most one pair of elements in one of the arrays.
@@ -77,7 +99,20 @@ namespace DemoAlgotithm.Assignments
             return new int[] { teamA, teamB };
         }
 
+        static int SimpleArraySum(int n, int[] ar)
+        {
+            int result = 0;
+            if (n > 0 && ar.Length > 0)
+            {
 
+                for (int i = 0; i < n; i++)
+                {
+                    result += ar[i];
+                }
+            }
+
+            return result;
+        }
 
         #region
         /*Some people are standing in a row in a park. 

@@ -14,6 +14,22 @@ namespace DemoAlgotithm.Assignments
             return n/10 + n%10;
         }
 
+        static int Reversal(int number)
+        {
+            if (number >= 10)
+            {
+                int ReverseNumber = 0;
+                while (number > 0)
+                {
+                    ReverseNumber = (ReverseNumber * 10) + (number % 10);
+                    number = number / 10;
+                }
+                return ReverseNumber;
+            }
+
+            return number;
+        }
+
         #region
         /*
          Ticket numbers usually consist of an even number of digits. 

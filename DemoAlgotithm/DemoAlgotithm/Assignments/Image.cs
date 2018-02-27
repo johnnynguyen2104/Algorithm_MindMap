@@ -29,11 +29,11 @@ namespace DemoAlgotithm.Assignments
              
              */
         #endregion
-        public static int CountingStars(char[][] image)
-        {
+        //public static int CountingStars(char[][] image)
+        //{
 
 
-        }
+        //}
 
         #region
         /*

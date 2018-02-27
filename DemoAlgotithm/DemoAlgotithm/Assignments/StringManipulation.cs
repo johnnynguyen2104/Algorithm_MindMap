@@ -36,7 +36,7 @@ namespace DemoAlgotithm.Assignments
                 {
                     builder.Append(s[i]);
                 }
-                
+
             }
 
             return builder.ToString();
@@ -69,7 +69,7 @@ namespace DemoAlgotithm.Assignments
                 return null;
             }
 
-            var currentChar = s[startIndex] == ')' || s[startIndex] == '(' ? "" : s[startIndex].ToString() ;
+            var currentChar = s[startIndex] == ')' || s[startIndex] == '(' ? "" : s[startIndex].ToString();
 
             return ReverseSubStringInParentheses(s, startIndex + 1, ref outputIndex) + currentChar + children;
         }
@@ -87,7 +87,7 @@ namespace DemoAlgotithm.Assignments
             //    startIndex = outputIndex;
             //}
 
-            if(s[startIndex] == ')')
+            if (s[startIndex] == ')')
             {
                 outputIndex = startIndex;
                 return null;
@@ -95,10 +95,10 @@ namespace DemoAlgotithm.Assignments
 
             var comparer = OrderByDESCSubStringInParentheses(s, startIndex + 1, ref outputIndex);
 
-            return (s[startIndex].CompareTo(comparer == null ? ' ': comparer[0]) < 0 ? comparer + s[startIndex] : s[startIndex] + comparer); 
+            return (s[startIndex].CompareTo(comparer == null ? ' ' : comparer[0]) < 0 ? comparer + s[startIndex] : s[startIndex] + comparer);
         }
 
-      
+
 
         //Given two strings, find the number of common characters between them.
         public static int CommonCharacterCount(string s1, string s2)
@@ -123,7 +123,7 @@ namespace DemoAlgotithm.Assignments
 
         private static Dictionary<char, int> StringToDictionary(string s1)
         {
-            Dictionary<char, int> result= new Dictionary<char, int>();
+            Dictionary<char, int> result = new Dictionary<char, int>();
             foreach (char c in s1)
             {
                 if (!result.ContainsKey(c))
@@ -180,6 +180,31 @@ namespace DemoAlgotithm.Assignments
             }
 
             return true;
+        }
+
+        public static string FindSubStringInString(string s, string pattern = "hackerrank")
+        {
+            StringBuilder result = new StringBuilder();
+            int indexResult = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == pattern[indexResult])
+                {
+                    indexResult++;
+                }
+                else
+                {
+                    indexResult = 0;
+                }
+
+                if (indexResult == pattern.Length)
+                {
+                    return "YES";
+                }
+            }
+
+            return "NO";
         }
     }
 }
