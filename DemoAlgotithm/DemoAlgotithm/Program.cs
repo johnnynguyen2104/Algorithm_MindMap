@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using DemoAlgotithm.Assignments;
 using DemoAlgotithm.BinaryTree;
 
 namespace DemoAlgotithm
@@ -11,7 +12,12 @@ namespace DemoAlgotithm
         static void Main(string[] args)
         {
 
-            Console.WriteLine(Assignments.Assignments.FindSubStringInString("hacker Ranker hackerrank"));
+            Console.WriteLine(TreeAssignment.hasPathWithGivenSum(new Tree<int>() {
+                left = new Tree<int>() { value = 1, left = new Tree<int>() { value = -2, right = new Tree<int>() { value = 3 } } },
+                right = new Tree<int>() { value = 3, left = new Tree<int>() { value = 1 }, right = new Tree<int>() { value = 2, left = new Tree<int>() { value = -2 }, right = new Tree<int>() { value = -3 } } },
+                value = 4
+
+            }, 7));
 
             Console.ReadLine();
         }

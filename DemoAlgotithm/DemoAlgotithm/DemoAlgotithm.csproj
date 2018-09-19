@@ -52,6 +52,7 @@
     <Compile Include="Assignments\Matrix.cs" />
     <Compile Include="Assignments\StringManipulation.cs" />
     <Compile Include="Assignments\Shape.cs" />
+    <Compile Include="Assignments\Tree.cs" />
     <Compile Include="BinaryTree\BinaryTreeStructure.cs" />
     <Compile Include="Heap_DataStructure\MinHeapBinary.cs" />
     <Compile Include="LinkedList_Algorithm\LinkedList.cs" />
@@ -61,6 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sorts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

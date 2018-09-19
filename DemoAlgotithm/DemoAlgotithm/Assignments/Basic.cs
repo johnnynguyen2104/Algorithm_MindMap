@@ -8,6 +8,42 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        //int[] rockPaperScissor(string opponentsMoves)
+        //{
+
+        //}
+        /*
+         For area = [[" ","S"," ","O"], ["G","S"," "," "], ["O","O"," "," "]] and direction = "S"
+         , the output should be "ULL".
+             */
+        //static string iceCave(string[][] area, string direction)
+        //{
+            
+        //}
+
+        //private bool Is
+
+        private int TurnLeft(int col)
+        {
+            return col++;
+        }
+
+        private int TurnRight(int col)
+        {
+            return col--;
+        }
+
+        private int GoUp(int row)
+        {
+            return row--;
+        }
+
+        private int GoDown(int row)
+        {
+            return row++;
+        }
+
+
         public static void FizzBuzz(int endpoint)
         {
             StringBuilder builder = new StringBuilder(8);
