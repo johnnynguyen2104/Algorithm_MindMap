@@ -8,6 +8,28 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        public static int[] ConstructArray(int size)
+        {
+            int[] result = new int[size];
+            int digitIndex = 1, sizeIndex = 0;
+            for (int i = 0; i < size; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    result[i] = digitIndex;
+                    digitIndex++;
+                }
+                else
+                {
+                    result[i] = size - sizeIndex;
+                    sizeIndex++;
+                }
+                
+            }
+
+            return result;
+        }
+
         public static void MiniMaxSum(int[] arr)
         {
             Int64 total = 0, max = 0, min = Int64.MaxValue;
