@@ -9,6 +9,37 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        /*
+         https://app.codesignal.com/arcade/intro/level-7/vExYvcGnFsEYSt8nQ
+             */
+        int circleOfNumbers(int n, int firstNumber)
+        {
+            int temp = firstNumber + n / 2;
+            if (temp >= n)
+            {
+                temp -= n;
+            }
+            return temp;
+        }
+
+
+        public static bool evenDigitsOnly(int n)
+        {
+            int temp = 0;
+            while (n > 0)
+            {
+                temp = n % 10;
+                if (temp % 2 != 0)
+                {
+                    return false;
+                }
+                n = n / 10;
+            }
+
+            return true;
+        }
+
+
         public static int AddTwoDigits(int n)
         {
             return n/10 + n%10;

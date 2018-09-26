@@ -9,6 +9,67 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        /*
+         Given two cells on the standard chess board, determine whether they have the same color or not.
+             */
+        public static bool chessBoardCellColor(string cell1, string cell2)
+        {
+            int alp = cell1.Substring(0, 1)[0], alp2 = cell2.Substring(0, 1)[0];
+            int digit = int.Parse(cell1.Substring(1)), digit2 = int.Parse(cell2.Substring(1));
+
+            bool color1 = (alp % 2 != 0 && digit % 2 != 0) || (alp % 2 == 0 && digit % 2 == 0),
+                color2 = (alp2 % 2 != 0 && digit2 % 2 != 0) || (alp2 % 2 == 0 && digit2 % 2 == 0);
+
+            return (color1 && color2) || (!color1 && !color2);
+        }
+
+        /*
+         Given a string, replace each its character by the next one in the English alphabet (z would be replaced by a).
+             */
+        string AlphabeticShift(string inputString)
+        {
+            StringBuilder result = new StringBuilder(inputString.Length);
+            int tempASCII = -1;
+            for (int i = 0; i < inputString.Length; i++)
+            {
+                tempASCII = inputString[i] + 1;
+                if (tempASCII > 122 || (tempASCII > 90 && tempASCII <97))
+                {
+                    tempASCII -= 26;
+                }
+                result.Append((char)tempASCII);
+            }
+
+            return result.ToString();
+        }
+
+
+        /*
+         Correct variable names consist only of English letters, digits and underscores and they can't start with a digit.
+             */
+        public static bool VariableName(string name)
+        {
+            int asciiDec = name[0];
+            if ((asciiDec >= 48 && asciiDec <= 57))
+            {
+                return false;
+            }
+            for (int i = 0; i < name.Length; i++)
+            {
+                asciiDec = (int)name[i];
+                if ((asciiDec < 65 || asciiDec > 90)
+                    && (asciiDec < 97 || asciiDec > 122)
+                    && (asciiDec < 48 || asciiDec >57)
+                    && asciiDec != 95)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+
         #region
         /*
          You have a string s that consists of English letters, punctuation marks, whitespace characters, and brackets. 

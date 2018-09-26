@@ -9,6 +9,60 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+
+        public static int[,] BoxBlur(int[,] image)
+        {
+            int row = image.GetLength(0)
+                , column = image.GetLength(1)
+                , resultR = 0, resultC = 0;
+
+            int temp = 0;
+            int[,] result = new int[row - 2, column- 2];
+
+            for (int i = 0; i < row - 2; i++)
+            {
+                for (int j = 0; j < column - 2; j++)
+                {
+                    for (int d = 0; d < 3; d++)
+                    {
+                        temp += image[i,j + d];
+                        temp += image[i + 1,j + d];
+                        temp += image[i + 2,j + d];
+                    }
+                    result[resultR,resultC] = temp / 9;
+                    resultC++;
+                    temp = 0;
+                }
+                resultC = 0;
+                resultR++;
+            }
+
+            return result;
+        }
+
+        public static int Process(int[][] image, int rowIndex, int columnIndex)
+        {
+            int result = 0
+                , currentR = rowIndex, currentC = columnIndex;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    result += image[currentR][currentC];
+                    currentC++;
+                }
+                currentC = columnIndex;
+                currentR++;
+            }
+
+            return result / 9;
+        }
+
+        /// <summary>
+        /// Not Ready
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
         public static int maximumNonAdjacentCellsSum(int[,] matrix)
         {
             int row = matrix.GetLength(0)
@@ -97,7 +151,11 @@ namespace DemoAlgotithm.Assignments
             return result;
         }
 
-
+        /// <summary>
+        /// Not readys
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
         public static int maximumNonAdjacentCellsSum(int[][] matrix)
         {
             int row = matrix.GetLength(0)

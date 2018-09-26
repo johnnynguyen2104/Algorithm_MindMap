@@ -8,6 +8,20 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+
+        public static int[] ArrayReplace(int[] inputArray, int elemToReplace, int substitutionElem)
+        {
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                if (inputArray[i] == elemToReplace)
+                {
+                    inputArray[i] = substitutionElem;
+                }
+            }
+
+            return inputArray;
+        }
+
         public static void MiniMaxSum(int[] arr)
         {
             Int64 total = 0, max = 0, min = Int64.MaxValue;

@@ -53,6 +53,7 @@
     <Compile Include="Assignments\StringManipulation.cs" />
     <Compile Include="Assignments\Shape.cs" />
     <Compile Include="Assignments\Tree.cs" />
+    <Compile Include="Assignments\XmlAlgorithm.cs" />
     <Compile Include="BinaryTree\BinaryTreeStructure.cs" />
     <Compile Include="Heap_DataStructure\MinHeapBinary.cs" />
     <Compile Include="LinkedList_Algorithm\LinkedList.cs" />
@@ -65,6 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sorts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HTMLPage1.html" />
+    <Content Include="boxBlur.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

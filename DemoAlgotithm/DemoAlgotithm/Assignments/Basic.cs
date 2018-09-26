@@ -8,6 +8,24 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        /*
+         https://app.codesignal.com/arcade/intro/level-7/8PxjMSncp9ApA4DAb
+             */
+        public static int depositProfit(int deposit, int rate, int threshold)
+        {
+            int yearResult = 0;
+            float increase = deposit;
+
+            while (increase < threshold)
+            {
+                increase += (increase * ((float)rate / 100));
+                yearResult++;
+            }
+
+            return yearResult;
+        }
+
+
         //int[] rockPaperScissor(string opponentsMoves)
         //{
 
@@ -18,7 +36,7 @@ namespace DemoAlgotithm.Assignments
              */
         //static string iceCave(string[][] area, string direction)
         //{
-            
+
         //}
 
         //private bool Is
