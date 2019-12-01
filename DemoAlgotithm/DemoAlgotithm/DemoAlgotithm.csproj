@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Assignments\Array.cs" />
     <Compile Include="Assignments\Basic.cs" />
+    <Compile Include="Assignments\BitManipulation.cs" />
     <Compile Include="Assignments\DateTimeAlgorithm.cs" />
     <Compile Include="Assignments\Image.cs" />
     <Compile Include="Assignments\Int.cs" />
