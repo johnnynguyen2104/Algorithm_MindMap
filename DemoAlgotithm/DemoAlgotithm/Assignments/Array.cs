@@ -8,6 +8,102 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+
+        static long CoinChangeWays(int n, int[] coins)
+        {
+            Dictionary<string, long> memorization = new Dictionary<string, long>();
+
+            return solution(n, coins, 0, memorization);
+        }
+
+        static long solution(int money, int[] coins, int startPoint, Dictionary<string, long> memorization)
+        {
+            long ways = 0;
+
+            if (money == 0)
+            {
+                return 1;
+            }
+
+            if (money < 0)
+            {
+                return 0;
+            }
+
+            string key = $"{money}-{startPoint}";
+            if (memorization.ContainsKey(key))
+            {
+                return memorization[key];
+            }
+
+            for (int i = startPoint; i < coins.Length; i++)
+            {
+                ways += solution(money - coins[i], coins, i, memorization);
+            }
+
+            memorization.Add(key, ways);
+
+            return ways;
+        }
+
+        static int MinimumSwaps(int[] arr)
+        {
+            int result = 0, temp = 0;
+
+            Dictionary<int, int> tempDic = new Dictionary<int, int>();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                tempDic.Add(arr[i], i);
+            }
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                temp = arr[i];
+
+                if (arr[i] != arr.Length - i)
+                {
+                    arr[i] = arr[tempDic[arr.Length - i]];
+                    arr[tempDic[arr.Length - i]] = temp;
+
+                    tempDic[temp] = tempDic[arr.Length - i];
+                    tempDic[arr.Length - i] = i;
+                    result++;
+                }
+            }
+
+            return result;
+        }
+
+        static int MinimumSwaps2(int[] arr)
+        {
+            int result = 0, temp = 0;
+
+            Dictionary<int, int> tempDic = new Dictionary<int, int>();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                tempDic.Add(arr[i], i);
+            }
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                temp = arr[i];
+
+                if (arr[i] != i + 1)
+                {
+                    arr[i] = arr[tempDic[arr.Length - i]];
+                    arr[tempDic[arr.Length - i]] = temp;
+
+                    tempDic[temp] = tempDic[arr.Length - i];
+                    tempDic[arr.Length - i] = i;
+                    result++;
+                }
+            }
+
+            return result;
+        }
+
         public static int[] ConstructArray(int size)
         {
             int[] result = new int[size];

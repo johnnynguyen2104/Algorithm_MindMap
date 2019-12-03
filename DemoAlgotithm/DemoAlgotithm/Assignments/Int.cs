@@ -9,6 +9,33 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        public static int Factor3And5(int low, int high)
+        {
+            double valueOf3 = 0, valueOf5 = 0, totalValue = 0;
+            int powerOf3 = 0, powerOf5 = 0, result = 0;
+
+            while (valueOf3 <= high)
+            {
+                valueOf3 = Math.Pow(3, powerOf3);
+                while (valueOf5 <= high)
+                {
+                    valueOf5 = Math.Pow(5, powerOf5);
+                    totalValue = valueOf3 * valueOf5;
+                    if (totalValue >= low && totalValue <= high)
+                    {
+                        result++;
+                    }
+                    powerOf5++;
+                }
+
+                valueOf5 = 0;
+                powerOf5 = 0;
+                powerOf3++;
+            }
+
+            return result;
+        }
+
         /*
          https://app.codesignal.com/arcade/intro/level-7/vExYvcGnFsEYSt8nQ
              */
