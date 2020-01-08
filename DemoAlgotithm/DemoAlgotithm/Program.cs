@@ -11,33 +11,350 @@ namespace DemoAlgotithm
 {
     class Program
     {
-        
 
+        //public static int minimumSwaps(List<int> popularity)
+        //{
+        //    int result = 0;
+        //    result = solution(popularity, popularity.Count - 1);
+        //    return result;
+        //}
+        //public static int solution(List<int> popularity, int index)
+        //{
+        //    int totalWays = 0, expectedValue = popularity.Count - index, previousValue = 0;
+        //    Dictionary<int, int> dic = new Dictionary<int, int>();
+        //    if (index >= 0) {
+        //        if (popularity[index] != expectedValue) {
+        //            totalWays++;
+        //            previousValue = popularity[index];
+        //            for (int i = index; i >= 0; i--)
+        //            {
+        //                if (popularity[i] == expectedValue) {
+        //                    popularity[index] = expectedValue;
+        //                    popularity[i] = previousValue;
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //        totalWays += solution(popularity, index - 1);
+        //    }
+        //    return totalWays;
+        //}
 
-
-        static void Main(string[] args)
+        public static int Solution(string s)
         {
-           
-        }
-
-        #region
-        static int solution(int n, int m)
-        {
-            int sumOfDivisible = 0, sumOfNotDivisible = 0;
-            for (int i = 1; i <= m; i++)
+            if (s.Length % 2 != 0)
             {
-                if (i % n == 0)
+                return 0;
+            }
+
+            int result = 0;
+            int totalOpen1 = 0, totalOpen2 = 0, 
+                totalClose1 = 0, totalClose2 = 0, 
+                totalQuestionMarks = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                IdentiyAndSumBracket(s[i], ref totalOpen1, ref totalOpen2, ref totalClose1, ref totalClose2, ref totalQuestionMarks);
+            }
+
+            int totalSubstringOpen1 = 0, totalSubstringOpen2 = 0, 
+                totalSubstringClose1 = 0, totalSubstringClose2 = 0, 
+                totalSubstringQuestionMarks = 0;
+
+            bool isSubString1Balanced = false;
+
+            for (int i = 1; i < s.Length - 2; i += 2)
+            {
+                IdentiyAndSumBracket(s[i - 1], ref totalSubstringOpen1, ref totalSubstringOpen2, ref totalSubstringClose1, ref totalSubstringClose2, ref totalSubstringQuestionMarks);
+                IdentiyAndSumBracket(s[i], ref totalSubstringOpen1, ref totalSubstringOpen2, ref totalSubstringClose1, ref totalSubstringClose2, ref totalSubstringQuestionMarks);
+
+                isSubString1Balanced = IsRearrangedBalanceString(totalSubstringOpen1, totalSubstringOpen2, totalSubstringClose1, totalSubstringClose2, totalSubstringQuestionMarks);
+
+                if (isSubString1Balanced)
                 {
-                    sumOfDivisible += i;
-                }
-                else
-                {
-                    sumOfNotDivisible += i;
+                    result += isSubString1Balanced && IsRearrangedBalanceString(totalOpen1 - totalSubstringOpen1,
+                                                                                totalOpen2 - totalSubstringOpen2,
+                                                                                totalClose1 - totalSubstringClose1,
+                                                                                totalClose2 - totalSubstringClose2,
+                                                                                totalQuestionMarks - totalSubstringQuestionMarks) ? 1 : 0;
                 }
             }
 
-            return sumOfNotDivisible - sumOfDivisible;
+            return result;
         }
+
+        public static void IdentiyAndSumBracket(char c, ref int open1, ref int open2, ref int close1, ref int close2, ref int questionMarks)
+        {
+            if (c == '[')
+            {
+                open1++;
+            }
+            else if (c == ']')
+            {
+                close1++;
+            }
+            else if (c == '(')
+            {
+                open2++;
+            }
+            else if (c == ')')
+            {
+                close2++;
+            }
+            else
+            {
+                questionMarks++;
+            }
+        }
+
+        public static bool IsRearrangedBalanceString(int open1, int open2, int close1, int close2, int questionMarks)
+        {
+            int remainingUnmatchedBrackets = Math.Abs(open1 - close1) + Math.Abs(open2 - close2);
+            if (remainingUnmatchedBrackets == 0)
+            {
+                return questionMarks % 2 == 0;
+            }
+
+            int remainingQuestionMarks = (questionMarks - remainingUnmatchedBrackets);
+            return remainingQuestionMarks >= 0 && remainingQuestionMarks % 2 == 0;
+        }
+
+        //public static int fillMissingBrackets(string s)
+        //{
+        //    int result = 0;
+        //    result = solution(s, 2);
+        //    return result;
+        //}
+
+        //static int solution(string s, int numberOfItemsOfFirstString)
+        //{
+        //    int result = 0;
+        //    bool isFirstStringBalance = false, isSecondStringBalance = false;
+        //    if (s.Length > numberOfItemsOfFirstString) {
+        //        isFirstStringBalance = isBalance(s, 0, numberOfItemsOfFirstString);
+
+        //        if (isFirstStringBalance) { 
+        //            isSecondStringBalance = isBalance(s, numberOfItemsOfFirstString, s.Length);
+        //        }
+
+        //        if (isFirstStringBalance == true && isSecondStringBalance == true) {
+        //            result++;
+        //        }
+
+        //        result += solution(s, numberOfItemsOfFirstString + 2);
+        //    }
+        //    return result;
+        //}
+
+        //static bool isBalance(string s, int startIndex, int endIndex) {
+        //    bool result = false;
+        //    int numberOfOpenBrakets = 0, numberOfCloseBrakets = 0, numberOfOpenSquare = 0, numberOfCloseSquare = 0,
+        //        numberOfQuestions = 0;
+        //    for (int i = startIndex; i < endIndex; i++)
+        //    {
+        //        if (s[i] == '(')
+        //        {
+        //            numberOfOpenBrakets++;
+        //        }
+        //        else if (s[i] == ')')
+        //        {
+        //            numberOfCloseBrakets++;
+        //        }
+        //        else if (s[i] == '[')
+        //        {
+        //            numberOfOpenSquare++;
+        //        }
+        //        else if (s[i] == ']')
+        //        {
+        //            numberOfCloseSquare++;
+        //        }
+        //        else {
+        //            numberOfQuestions++;
+        //        }
+        //    }
+
+        //    int numberOfItemsToAdd = Math.Abs(numberOfOpenBrakets - numberOfCloseBrakets) + Math.Abs(numberOfOpenSquare - numberOfCloseSquare);
+
+        //    int remainingQuestions = numberOfQuestions - numberOfItemsToAdd;
+
+        //    if (remainingQuestions % 2 == 0 && remainingQuestions >= 0) {
+        //        result = true;
+        //    }
+
+        //    return result;
+        //}
+
+        public static int ways(int total, int k)
+        {
+            Dictionary<string, int> memoization = new Dictionary<string, int>();
+
+            return subProblem(total, k, 1, memoization);
+        }
+
+        public static int subProblem(int money, int k, int startPoint, Dictionary<string, int> memoization)
+        {
+            int ways = 0;
+
+            if (money == 0)
+            {
+                return 1;
+            }
+            else if (money < 0)
+            {
+                return 0;
+            }
+
+            for (int i = startPoint; i <= k; i++)
+            {
+                ways += subProblem(money - i, k, i, memoization);
+            }
+
+            return ways;
+        }
+
+        public static string ReverseString(string s)
+        { 
+            char[] result = new char[s.Length];
+
+            Recur(s, result, 0);
+            return string.Concat(result);
+        }
+
+        public static void Recur(string s, char[] result, int point)
+        {
+            if (point > s.Length / 2)
+            {
+                return;
+            }
+
+            result[point] = s[(s.Length - 1) - point];
+            result[(s.Length - 1) - point] = s[point];
+
+            Recur(s, result, point +1);
+        }
+
+        static int sum(int[] A, int i, int prevTotal, Dictionary<string, int> memo = null)
+        {
+            if (i == A.Length)
+                return prevTotal;
+
+            string key = $"{A[i]}-{Math.Abs(prevTotal)}";
+            if (memo.ContainsKey(key))
+            {
+                return memo[key];
+            }
+            var result = Math.Min(Math.Abs(sum(A, i + 1, A[i] + prevTotal, memo)), Math.Abs(sum(A, i + 1, A[i] - prevTotal, memo)));
+
+            if (!memo.ContainsKey(key))
+            {
+                memo.Add(key, result);
+            }
+            
+
+            return result;
+        }
+
+        //public static int solution(int[] A)
+        //{
+        //    Dictionary<string, int> memo = new Dictionary<string, int>();
+        //    return sum(A, 0, 0, memo);
+        //}
+
+        //public static int solution(int[] A)
+        //{
+        //    // write your code in C# 6.0 with .NET 4.5 (Mono)
+        //    int[] store = new int[A.Length];
+        //    store[0] = A[0];
+        //    for (int i = 1; i < A.Length; i++)
+        //    {
+        //        store[i] = store[i - 1];
+        //        for (int minus = 2; minus <= 6; minus++)
+        //        {
+        //            if (i >= minus)
+        //            {
+        //                store[i] = System.Math.Max(store[i], store[i - minus]);
+        //            }
+        //            else
+        //            {
+        //                break;
+        //            }
+        //        }
+        //        store[i] += A[i];
+        //    }
+        //    return store[A.Length - 1];
+        //}
+
+        public static int solution(string S)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            int totalOpens = 0, totalClose = 0;
+
+            for (int i = 0; i < S.Length; i++)
+            {
+                if (S[i] == '(')
+                {
+                    totalOpens++;
+                }
+                else
+                {
+                    totalClose++;
+                }
+            }
+
+            if (S.Length == 2)
+            {
+                return System.Math.Max(totalOpens, totalClose);
+            }
+
+            int openLeft = 0, closeLeft = 0, openRight = totalOpens, closeRight = totalClose, idx =0;
+            for (idx  = 0; idx < S.Length; idx++)
+            {
+                if (S[idx] == '(')
+                {
+                    openLeft++;
+
+                    openRight--;
+
+                }
+                else
+                {
+                    closeLeft++;
+
+                    closeRight--;
+                }
+
+                if (openLeft == closeRight)
+                {
+                    break;
+                }
+            }
+
+            return idx + 1;
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine(solution(")))")); 
+            
+        }
+
+        #region
+        //static int solution(int n, int m)
+        //{
+        //    int sumOfDivisible = 0, sumOfNotDivisible = 0;
+        //    for (int i = 1; i <= m; i++)
+        //    {
+        //        if (i % n == 0)
+        //        {
+        //            sumOfDivisible += i;
+        //        }
+        //        else
+        //        {
+        //            sumOfNotDivisible += i;
+        //        }
+        //    }
+
+        //    return sumOfNotDivisible - sumOfDivisible;
+        //}
 
         static int fibo(int n)
         {
@@ -70,6 +387,7 @@ namespace DemoAlgotithm
 
         static void shiftByK(char[] S, char[] shiftedS, int N, int K)
         {
+           
             // Iterate through the length of given string
             for (int i = 0; i < N; i++)
             {

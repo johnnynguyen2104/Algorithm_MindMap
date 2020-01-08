@@ -9,6 +9,112 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        //Split the S into 2 parts (Left, right) such that the Open Brackets on the left equal to the close brackets on the right.
+        // Return the the Splitted length. 
+        // (()) => 2 "((", "))"
+        // (())))( => 4 "(())", "))("
+        // )) => 2 "))"
+        public static int solution(string S)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            int totalOpens = 0, totalClose = 0;
+
+            for (int i = 0; i < S.Length; i++)
+            {
+                if (S[i] == '(')
+                {
+                    totalOpens++;
+                }
+                else
+                {
+                    totalClose++;
+                }
+            }
+
+            if (S.Length == 2)
+            {
+                return System.Math.Max(totalOpens, totalClose);
+            }
+
+            int openLeft = 0, closeLeft = 0, openRight = totalOpens, closeRight = totalClose, idx = 0;
+            for (idx = 0; idx < S.Length; idx++)
+            {
+                if (S[idx] == '(')
+                {
+                    openLeft++;
+
+                    openRight--;
+
+                }
+                else
+                {
+                    closeLeft++;
+
+                    closeRight--;
+                }
+
+                if (openLeft == closeRight)
+                {
+                    break;
+                }
+            }
+
+            return idx + 1;
+        }
+
+        public static int[] GenomicRangeQuery(string S, int[] P, int[] Q)
+        {
+            int[,] genoms = new int[3, S.Length + 1];
+            short a, c, g;
+            for (int i = 0; i < S.Length; i++)
+            {
+                a = 0; c = 0; g = 0;
+                if ('A' == (S[i]))
+                {
+                    a = 1;
+                }
+                if ('C' == (S[i]))
+                {
+                    c = 1;
+                }
+                if ('G' == (S[i]))
+                {
+                    g = 1;
+                }
+                //here we calculate prefix sums. To learn what's prefix sums look at here https://codility.com/media/train/3-PrefixSums.pdf
+                genoms[0, i + 1] = genoms[0, i] + a;
+                genoms[1, i + 1] = genoms[1, i] + c;
+                genoms[2, i + 1] = genoms[2, i] + g;
+            }
+
+            int[] result = new int[P.Length];
+            int fromIndex = 0, toIndex = 0;
+
+            for (int i = 0; i < P.Length; i++)
+            {
+                fromIndex = P[i];
+                toIndex = Q[i] + 1;
+
+                if (genoms[0, toIndex] - genoms[0, fromIndex] > 0)
+                {
+                    result[i] = 1;
+                }
+                else if (genoms[1, toIndex] - genoms[1, fromIndex] > 0)
+                {
+                    result[i] = 2;
+                }
+                else if (genoms[2, toIndex] - genoms[2, fromIndex] > 0)
+                {
+                    result[i] = 3;
+                }
+                else
+                {
+                    result[i] = 4;
+                }
+            }
+
+            return result;
+        }
         /*
          Given two cells on the standard chess board, determine whether they have the same color or not.
              */

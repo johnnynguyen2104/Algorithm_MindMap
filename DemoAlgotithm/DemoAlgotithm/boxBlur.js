@@ -1,3 +1,8 @@
+var a = 'dasdasda';
+if (a) {
+    alert("dsadasda");
+}
+
 function boxBlur(image) {
     var row = image.length
         , column = image[0].length

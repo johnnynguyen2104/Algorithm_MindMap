@@ -8,6 +8,391 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        public static int MaxDoubleSliceSum(int[] A)
+        {
+            //https://en.wikipedia.org/wiki/Maximum_subarray_problem
+            if (A.Length == 3)
+            {
+                return 0;
+            }
+
+            int n = A.Length;
+            int[] max_sum_end = new int[A.Length];
+            int[] max_sum_start = new int[A.Length];
+
+            /*
+             # A[X + 1] + A[X + 2] + ... + A[Y − 1]
+            # Let's assume that Y is equal to i+1.
+            # If l_max_slice_sum[i-1] + A[i] is negative, we assign X to i.
+            # It means that the slice sum is 0 because X and Y are consecutive indices.
+             */
+            for (int i = 1; i < (n - 1); i++)
+            {
+                max_sum_end[i] = System.Math.Max(0, max_sum_end[i - 1] + A[i]);
+            }
+
+            /*
+              # We suppose that Y is equal to i-1.
+                # As aforementioned, Z will be assigned to i if r_max_slice_sum[i+1] + A[i]
+                # is negative, and it returns 0 because Y and Z becomes consecutive indices.
+             */
+            for (int i = n - 2; i > 0; i--) // i=0 and i=n-1 are not used because x=0,z=n-1
+            {
+                max_sum_start[i] = System.Math.Max(0, max_sum_start[i + 1] + A[i]);
+            }
+
+            int maxvalue = 0;
+
+            /*
+             # Let's say that i is the index of Y.
+            # l_max_slice_sum[i-1] is the max sum of the left slice, and
+            # r_max_slice_sum[i+1] is the max sum of the right slice.
+             */
+            for (int i = 1; i < (n - 1); i++)
+            {
+                maxvalue = System.Math.Max(maxvalue, max_sum_end[i - 1] + max_sum_start[i + 1]);
+            }
+
+            return maxvalue;
+        }
+
+        public static int MaxSliceSum(int[] A)
+        {
+            //https://en.wikipedia.org/wiki/Maximum_subarray_problem
+            //Kadane's Algo
+
+            //int maxSum = A[0], subSum = A[0];
+            //for (int i = 1; i < A.Length; i++)
+            //{
+            //    subSum = Math.Max(subSum + A[i], A[i]);
+            //    maxSum = Math.Max(maxSum, subSum);
+            //}
+
+            //return maxSum;
+
+            /*
+             It uses two variables: ‘max’ to represent maximum sum and ‘acc’ for storing cumulative sum. If acc is negative at the current step, it restarts cumulative sum by assigning 0; that is because the next sum would be negatively affected.
+             */
+            int subSum = 0, max = A[0];
+            for (int i = 0; i < A.Length; i++)
+            {
+                subSum += A[i];
+                max = Math.Max(max, subSum);
+
+                if (subSum < 0)
+                {
+                    subSum = 0;
+                }
+            }
+
+            return max;
+        }
+
+        public static int MaxProfit(int[] A)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            if (A.Length == 0)
+            {
+                return 0;
+            }
+
+            int max = -1, min = 200001, P = 0, Q = 0, profit = 0;
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (max < A[i])
+                {
+                    max = A[i];
+                    Q = i;
+                }
+
+                if (min > A[i])
+                {
+                    min = A[i];
+                    P = i;
+
+                    if (P > Q)
+                    {
+                        max = A[i];
+                        Q = P;
+                    }
+                }
+
+                profit = Math.Max(profit, A[Q] - A[P]);
+            }
+
+            return profit;
+        }
+
+        public static int Distinct(int[] A)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            HashSet<int> hs = new HashSet<int>();
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (!hs.Contains(A[i]))
+                {
+                    hs.Add(A[i]);
+                }
+            }
+
+            return hs.Count;
+        }
+
+        public static int MaxProductOfThree(int[] A)
+        {
+            int min1 = 1001, min2 = 1001,
+                max1 = -1001, max2 = -1001, max3 = -1001;
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (min1 > A[i])
+                {
+                    min2 = min1;
+                    min1 = A[i];
+                }
+                else if (min2 > A[i])
+                {
+                    min2 = A[i];
+                }
+
+                if (max1 < A[i])
+                {
+                    max3 = max2;
+                    max2 = max1;
+                    max1 = A[i];
+                }
+                else if (max2 < A[i])
+                {
+                    max3 = max2;
+                    max2 = A[i];
+                }
+                else if (max3 < A[i])
+                {
+                    max3 = A[i];
+                }
+            }
+
+            return System.Math.Max(min1 * min2 * max1, max1 * max2 * max3);
+        }
+
+        public static int MinAvgTwoSlice(int[] A)
+        {
+            int minAvgIdx = 0;
+            double minAvgVal = (A[0] + A[1]) / 2; //At least two elements in A.
+            double currAvg;
+            for (int i = 0; i < A.Length - 2; i++)
+            {
+                /**
+                 * We check first the two-element slice
+                 */
+                currAvg = ((double)(A[i] + A[i + 1])) / 2;
+                if (currAvg < minAvgVal)
+                {
+                    minAvgVal = currAvg;
+                    minAvgIdx = i;
+                }
+                /**
+                 * We check the three-element slice
+                 */
+                currAvg = ((double)(A[i] + A[i + 1] + A[i + 2])) / 3;
+                if (currAvg < minAvgVal)
+                {
+                    minAvgVal = currAvg;
+                    minAvgIdx = i;
+                }
+            }
+            /**
+             * Now we have to check the remaining two elements of the array
+             * Inside the for we checked ALL the three-element slices (the last one
+             * began at A.length-3) and all but one two-element slice (the missing
+             * one begins at A.length-2).
+             */
+            currAvg = ((double)(A[A.Length - 2] + A[A.Length - 1])) / 2;
+            if (currAvg < minAvgVal)
+            {
+                minAvgVal = currAvg;
+                minAvgIdx = A.Length - 2;
+            }
+
+            return minAvgIdx;
+        }
+        public static int[] MaxCounters(int N, int[] A)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            int max = 0, maxCounter = 0;
+            int[] result = new int[N];
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (A[i] == N + 1)
+                {
+                    maxCounter = max;
+                }
+                else
+                {
+                    if (result[A[i] - 1] < maxCounter)
+                    {
+                        //plus with maxCounter and +1 because need to increase it as it appear again.
+                        result[A[i] - 1] = maxCounter + 1;
+                    }
+                    else
+                    {
+                        result[A[i] - 1]++;
+                    }
+
+
+                    if (max < result[A[i] - 1])
+                    {
+                        max = result[A[i] - 1];
+                    }
+                }
+            }
+            for (int i = 0; i < result.Length; i++)
+            {
+                if (result[i] < maxCounter)
+                {
+                    result[i] = maxCounter;
+                }
+            }
+            return result;
+        }
+
+        public static int FrogRiverOne(int X, int[] A)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            int steps = X;
+            bool[] bitmap = new bool[steps + 1];
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (!bitmap[A[i]])
+                {
+                    bitmap[A[i]] = true;
+                    steps--;
+                }
+                if (steps == 0) return i;
+            }
+            return -1;
+        }
+
+        public static int PassingCars(int[] A)
+        {
+            int east = 0, west = 0, count = 0;
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (A[i] == 0)
+                {
+                    east++;
+                }
+                else
+                {
+                    west++;
+                }
+            }
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (A[i] == 0)
+                {
+                    count += west;
+                    if (count >= 1000000000)
+                    {
+                        return -1;
+                    }
+                    east--;
+                }
+                else
+                {
+                    west--;
+                }
+            }
+            return count;
+        }
+
+        public static int MissingInteger(int[] A)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            HashSet<int> existValue = new HashSet<int>();
+            int max = int.MinValue;
+            int result = 0;
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (!existValue.Contains(A[i]))
+                {
+                    existValue.Add(A[i]);
+                }
+
+                if (A[i] > max) max = A[i];
+            }
+
+            for (int i = 1; i <= max; i++)
+            {
+                if (!existValue.Contains(i))
+                {
+                    result = i;
+                    break;
+                }
+            }
+
+            if (result == 0)
+            {
+                if (max + 1 <= 0)
+                {
+                    return 1;
+                }
+                return max + 1;
+            }
+
+            return result;
+        }
+
+        public static int PermCheck(int[] A)
+        {
+            HashSet<int> existValue = new HashSet<int>();
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (existValue.Contains(A[i]))
+                {
+                    return 0;
+                }
+                existValue.Add(A[i]);
+            }
+
+            for (int i = 1; i <= A.Length; i++)
+            {
+                if (!existValue.Contains(i))
+                {
+                    return 0;
+                }
+            }
+
+            return 1;
+        }
+
+        public static int PermMissingElem(int[] A)
+        {
+            int[] a = new int[A.Length + 2];
+            int result = -1;
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                a[A[i]]++;
+            }
+
+            for (int i = 1; i < a.Length; i++)
+            {
+                if (a[i] == 0)
+                {
+                    result = i;
+                    break;
+                }
+            }
+
+            return result;
+        }
 
         static long CoinChangeWays(int n, int[] coins)
         {
@@ -35,7 +420,7 @@ namespace DemoAlgotithm.Assignments
             {
                 return memorization[key];
             }
-
+           
             for (int i = startPoint; i < coins.Length; i++)
             {
                 ways += solution(money - coins[i], coins, i, memorization);
@@ -46,28 +431,36 @@ namespace DemoAlgotithm.Assignments
             return ways;
         }
 
-        static int MinimumSwaps(int[] arr)
+        static int MinimumSwaps(List<int> popularity)
         {
-            int result = 0, temp = 0;
+            int result = 0, tempData = 0, tempIndex = 0, tempData2;
+            Dictionary<int, int> reflectionIndexOfTheArray = new Dictionary<int, int>();
 
-            Dictionary<int, int> tempDic = new Dictionary<int, int>();
-
-            for (int i = 0; i < arr.Length; i++)
+            //Build up a reflection of the Index of array
+            //to avoid loop the array many times
+            //With this dictionary, I can reduce the complexity of my code from O(N^2) -> O(N)
+            for (int i = 0; i < popularity.Count; i++)
             {
-                tempDic.Add(arr[i], i);
+                reflectionIndexOfTheArray.Add(popularity[i], i);
             }
 
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < popularity.Count; i++)
             {
-                temp = arr[i];
+                tempData = popularity[i];
 
-                if (arr[i] != arr.Length - i)
+                if (popularity[i] != popularity.Count - i)
                 {
-                    arr[i] = arr[tempDic[arr.Length - i]];
-                    arr[tempDic[arr.Length - i]] = temp;
+                    tempIndex = reflectionIndexOfTheArray[popularity.Count - i];
 
-                    tempDic[temp] = tempDic[arr.Length - i];
-                    tempDic[arr.Length - i] = i;
+                    //Swaping between two values
+                    popularity[i] = popularity[tempIndex];
+                    popularity[tempIndex] = tempData;
+
+                    //Updating new Index for the reflection.
+                    tempData2 = reflectionIndexOfTheArray[popularity.Count - i];
+                    reflectionIndexOfTheArray[popularity.Count - i] = i;
+                    reflectionIndexOfTheArray[tempData] = tempData2;
+
                     result++;
                 }
             }

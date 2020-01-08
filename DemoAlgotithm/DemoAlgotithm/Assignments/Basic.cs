@@ -9,6 +9,49 @@ namespace DemoAlgotithm.Assignments
     public partial class Assignments
     {
         /*
+         given three integers A, B and K, returns the number of integers within the range [A..B] that are divisible by K, i.e.:
+
+        { i : A ≤ i ≤ B, i mod K = 0 }
+
+        For example, for A = 6, B = 11 and K = 2, your function should return 3, because there are three numbers divisible by 2 within the range [6..11], namely 6, 8 and 10.
+             */
+        public static int CountDiv(int A, int B, int K)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            if (A % K == 0)
+                return (B / K) - (A / K) + 1;
+
+            // A is not divisible by M 
+            return (B / K) - (A / K);
+        }
+
+        public static int BinaryGap(int N)
+        {
+            int count = -1, number = 0, max = 0;
+
+            while (N >= 1)
+            {
+                number = (N % 2);
+                if (number == 1 && count == -1)
+                {
+                    count = 0;
+                }
+                else if (number == 1 && count != -1)
+                {
+                    max = count > max ? count : max;
+                    count = 0;
+                }
+                else if (number == 0 && count != -1)
+                {
+                    count++;
+                }
+
+                N = N / 2;
+            }
+
+            return max;
+        }
+        /*
          https://app.codesignal.com/arcade/intro/level-7/8PxjMSncp9ApA4DAb
              */
         public static int depositProfit(int deposit, int rate, int threshold)
