@@ -9,6 +9,90 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+        public static string CheckExtensions(string S)
+        {
+            //Added a newline char to to make the last line of the string has a same structure as other lines.
+            S += '\n';
+
+            //Defined extensions and types of extension.
+            Dictionary<string, string> extensions = new Dictionary<string, string>()
+            {
+                { ".mp3", "music" },
+                { ".aac", "music" },
+                { ".flac", "music" },
+                { ".jpg", "images" },
+                { ".bmp", "images" },
+                { ".gif", "images" },
+                { ".mp4", "movies" },
+                { ".avi", "movies" },
+                { ".mkv", "movies" }
+            };
+
+            Dictionary<string, int> types = new Dictionary<string, int>() {
+                { "music", 0 },
+                { "images", 0 },
+                { "movies", 0 },
+                { "other", 0}
+            };
+
+            int latestDot = 0, latestSpace = 0;
+            string ext = "", b = "";
+
+            for (int i = 0; i < S.Length - 1; i++)
+            {
+                //The idea is, take all the from the last dot to the \n and last space to \n
+                //For example for the first line is my.song.mp3 11b\n and when the S[i] meets '\n',
+                //then the ext variable will be .mp3 and the b variable will be 11
+                //Finally, just check the ext variable with dictionaries extensions and types and parse the b variable from string to int
+                //, set associated variables back to default.
+                if (S[i + 1] == '\n')
+                {
+                    if (!extensions.ContainsKey(ext))
+                    {
+                        types["other"] += int.Parse(b);
+                    }
+                    else
+                    {
+                        types[extensions[ext]] += int.Parse(b);
+                    }
+
+                    latestDot = 0;
+                    latestSpace = 0;
+                    ext = "";
+                    b = "";
+                }
+                else if (S[i] == '.')
+                {
+                    ext = "";
+                    latestDot = i;
+                }
+                else if (S[i] == ' ')
+                {
+                    latestSpace = i;
+                    b = "";
+                }
+
+                if (latestDot != 0 && latestSpace == 0)
+                {
+                    ext += S[i];
+                }
+
+                if (latestSpace != 0)
+                {
+                    b += S[i];
+                }
+
+            }
+
+            string result = "";
+
+            foreach (var item in types)
+            {
+                result += $"{item.Key} {item.Value}b\r\n";
+            }
+            return result;
+        }
+
         //Split the S into 2 parts (Left, right) such that the Open Brackets on the left equal to the close brackets on the right.
         // Return the the Splitted length. 
         // (()) => 2 "((", "))"
@@ -347,6 +431,51 @@ namespace DemoAlgotithm.Assignments
             }
 
             return true;
+        }
+
+        public static string isBalanced(string s)
+        {
+
+            Stack<char> br = new Stack<char>();
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '{' || s[i] == '[' || s[i] == '(')
+                {
+                    br.Push(s[i]);
+                }
+                else if (s[i] == '}')
+                {
+                    if (br.Count <= 0 || br.Peek() != '{')
+                    {
+                        return "NO";
+                    }
+                    br.Pop();
+                }
+                else if (s[i] == ']')
+                {
+                    if (br.Count <= 0 || br.Peek() != '[')
+                    {
+                        return "NO";
+                    }
+                    br.Pop();
+                }
+                else if (s[i] == ')')
+                {
+                    if (br.Count <= 0 || br.Peek() != '(')
+                    {
+                        return "NO";
+                    }
+                    br.Pop();
+                }
+            }
+
+            if (br.Count > 0)
+            {
+                return "NO";
+            }
+
+            return "YES";
         }
 
         public static string FindSubStringInString(string s, string pattern = "hackerrank")

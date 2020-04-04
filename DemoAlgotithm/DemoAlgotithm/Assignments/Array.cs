@@ -8,6 +8,106 @@ namespace DemoAlgotithm.Assignments
 {
     public partial class Assignments
     {
+
+        static long factorizedGCD(int[] a, int[] b)
+        {
+
+            long firstNumber = a[0], secondNumber = b[0];
+            for (int i = 0; i < a.Length - 1; i++)
+            {
+                firstNumber = firstNumber * a[i + 1];
+            }
+
+            for (int i = 0; i < b.Length - 1; i++)
+            {
+                secondNumber = secondNumber * b[i + 1];
+            }
+
+            if (firstNumber == secondNumber)
+            {
+                return firstNumber;
+            }
+
+            //https://en.wikipedia.org/wiki/Euclidean_algorithm
+            while (firstNumber != 0 && secondNumber != 0)
+            {
+                if (firstNumber > secondNumber)
+                    firstNumber %= secondNumber;
+                else
+                    secondNumber %= firstNumber;
+            }
+
+            return firstNumber == 0 ? secondNumber : firstNumber;
+        }
+
+
+        #region
+        /*
+         You are given n rectangular boxes, the ith box has the length lengthi, the width widthi and the height heighti. Your task is to check if it is possible to pack all boxes into one so that inside each box there is no more than one another box (which, in turn, can contain at most one another box, and so on). More formally, your task is to check whether there is such sequence of n different numbers pi (1 ≤ pi ≤ n) that for each 1 ≤ i < n the box number pi can be put into the box number pi+1.
+
+A box can be put into another box if all sides of the first one are less than the respective ones of the second one. You can rotate each box as you wish, i.e. you can swap its length, width and height if necessary.
+
+Example
+
+For length = [1, 3, 2], width = [1, 3, 2], and height = [1, 3, 2], the output should be
+
+boxesPacking(length, width, height) = true;
+
+For length = [1, 1], width = [1, 1], and height = [1, 1], the output should be
+
+boxesPacking(length, width, height) = false;
+
+For length = [3, 1, 2], width = [3, 1, 2], and height = [3, 2, 1], the output should be
+
+boxesPacking(length, width, height) = false.
+             */
+        #endregion
+        static bool boxesPacking(int[] length, int[] width, int[] height)
+        {
+            Dictionary<int, long> dicBoxes = new Dictionary<int, long>();
+
+            for (int i = 0; i < length.Length; i++)
+            {
+                dicBoxes.Add(i, (length[i] * width[i] * height[i]));
+            }
+
+            //Sorted boxes base on total size (L * W * H)
+            var boxes = dicBoxes.OrderBy(a => a.Value).Select(a => a.Key).ToArray();
+
+            bool result = true, swapable = false;
+            int current = 0, next = 0;
+            for (int i = 0; i < boxes.Length - 1; i++)
+            {
+                current = boxes[i];
+                next = boxes[i + 1];
+
+                if (length[current] >= length[next]
+                    || width[current] >= width[next]
+                    || height[current] >= height[next])
+                {
+
+                    if ((length[current] < length[next] && width[current] < height[next] && height[current] < width[next])
+                        || (length[current] < width[next] && width[current] < length[next] && height[current] < height[next])
+                        || (length[current] < height[next] && width[current] < width[next] && height[current] < length[next])
+                        || (length[current] < width[next] && width[current] < height[next] && height[current] < length[next])
+                        || (length[current] < height[next] && width[current] < length[next] && height[current] < width[next]))
+                    {
+                        swapable = true;
+                    }
+
+                    if (!swapable)
+                    {
+                        return false;
+                    }
+
+                    swapable = false;
+                }
+
+            }
+
+            return result;
+        }
+
         public static int MaxDoubleSliceSum(int[] A)
         {
             //https://en.wikipedia.org/wiki/Maximum_subarray_problem

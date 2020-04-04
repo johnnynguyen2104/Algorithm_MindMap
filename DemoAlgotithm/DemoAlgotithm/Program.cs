@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DemoAlgotithm.Assignments;
-using DemoAlgotithm.BinaryTree;
 
 namespace DemoAlgotithm
 {
@@ -333,28 +328,59 @@ namespace DemoAlgotithm
         }
         static void Main(string[] args)
         {
-            Console.WriteLine(solution(")))")); 
-            
+            //# List vs Array
+            //int[] a = new int[10];
+            //List<int> a2 = new List<int>(10);
+            //a2.Add(20);
+            //a2.Add(21);
+
+            //var i = a[9];
+            //var i2 = a2[3];
+
+            //Dictionary vs List
+            //Dictionary features: Unique Key
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            List<int> list = new List<int>();
         }
 
-        #region
-        //static int solution(int n, int m)
-        //{
-        //    int sumOfDivisible = 0, sumOfNotDivisible = 0;
-        //    for (int i = 1; i <= m; i++)
-        //    {
-        //        if (i % n == 0)
-        //        {
-        //            sumOfDivisible += i;
-        //        }
-        //        else
-        //        {
-        //            sumOfNotDivisible += i;
-        //        }
-        //    }
+       
 
-        //    return sumOfNotDivisible - sumOfDivisible;
-        //}
+        public static int solution4(int X, int Y, int[] A)
+        {
+            int N = A.Length;
+            int result = -1;
+            int nX = 0;
+            int nY = 0;
+            for (int i = 0; i < N; i++)
+            {
+                if (A[i] == X)
+                    nX += 1;
+                else if (A[i] == Y)
+                    nY += 1;
+                if (nX == nY && nX != 0 && nY != 0)
+                    result = i;
+            }
+            return result;
+        }
+
+        public static int solution3(int X, int Y, int[] A)
+        {
+            int N = A.Length;
+            int result = -1;
+            int nX = -1;
+            int nY = -1;
+            for (int i = 0; i < N; i++)
+            {
+                if (A[i] == X)
+                    nX = i;
+                else if (A[i] == Y)
+                    nY = i;
+                if (nX != -1 && nY != -1)
+                    result = i;
+            }
+
+            return result;
+        }
 
         static int fibo(int n)
         {
